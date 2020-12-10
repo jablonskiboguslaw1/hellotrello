@@ -28,11 +28,23 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
     /*TODO Swagger doesn't work- Postman does
      *  Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID';*/
-    /*@GetMapping(path = "{id}")
+    @GetMapping(path = "{id}")
     public User getUserById(@PathVariable("id") UUID id) {
 
         return userService.findUserById(id).orElseThrow(NoSuchElementException::new);
-    }*/
+    }
+    @DeleteMapping(path = "{id}")
+    public void deleteUserById(@PathVariable("id") UUID id) {
+        userService.deleteUserById(id);
+
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateUserById(@PathVariable("id") UUID id, @RequestBody User userToUpdate) {
+        userService.updateUserById(id, userToUpdate);
+    }
 }
+
