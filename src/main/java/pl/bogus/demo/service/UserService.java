@@ -1,5 +1,7 @@
-package pl.bogus.demo;
+package pl.bogus.demo.service;
 
+
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.bogus.demo.dao.UserDao;
 import pl.bogus.demo.model.User;
@@ -14,7 +16,7 @@ public class UserService {
 
     private final UserDao userDao;
 
-    public UserService(UserDao userDao) {
+    public UserService(@Qualifier("postgres") UserDao userDao) {
         this.userDao = userDao;
     }
 

@@ -5,7 +5,7 @@ import pl.bogus.demo.model.User;
 
 import java.util.*;
 
-@Repository
+@Repository("fakeDao")
 public class FakeUserDataAccessService implements UserDao {
 
     private static List<User> DB = new ArrayList<>();

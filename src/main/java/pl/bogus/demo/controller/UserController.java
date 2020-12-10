@@ -1,7 +1,7 @@
 package pl.bogus.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pl.bogus.demo.UserService;
+import pl.bogus.demo.service.UserService;
 import pl.bogus.demo.model.User;
 
 import java.util.List;

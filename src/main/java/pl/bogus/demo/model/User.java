@@ -1,23 +1,27 @@
 package pl.bogus.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Table(name="users")
+@Entity
 public class User {
-
-    private final UUID id;
-
-    @NotNull
-    private final String name;
+    @Id
+    private UUID id;
 
     @NotNull
-    private final String email;
+    private String name;
+
+    @NotNull
+    private  String email;
     @NotNull
     //@JsonIgnore
-    private final String password;
+    private String password;
 
     public User(@JsonProperty("id") UUID id
             , @JsonProperty("name") String name
@@ -27,6 +31,10 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public User() {
+
     }
 
     public UUID getId() {
@@ -43,5 +51,21 @@ public class User {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
