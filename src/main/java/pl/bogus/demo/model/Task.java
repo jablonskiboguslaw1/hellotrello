@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Label {
+public class Task {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -26,5 +26,7 @@ public class Label {
     private String title;
     private String notes;
     private int points;
+    private int priority;
+    private Progress progress;
 
 }
