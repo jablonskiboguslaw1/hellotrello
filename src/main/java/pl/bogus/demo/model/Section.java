@@ -19,7 +19,7 @@ public class Section {
     private String description;
 
     @OneToMany
-    private List<Label> labels;
+    private List<Task> tasks;
 
 
 
