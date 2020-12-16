@@ -5,10 +5,8 @@ import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.UUID;
+import javax.persistence.*;
+
 /*some keyword in postgres - "user" wasn't accepted"*/
 @Table(name="users")
 @Getter
@@ -16,7 +14,8 @@ import java.util.UUID;
 @Entity
 public class User {
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotNull
     private String name;
@@ -27,7 +26,7 @@ public class User {
     //@JsonIgnore
     private String password;
 
-    public User(@JsonProperty("id") UUID id
+    public User(@JsonProperty("id") Long id
             , @JsonProperty("name") String name
             , @JsonProperty("email") String email
             , @JsonProperty("password") String password) {
@@ -40,5 +39,6 @@ public class User {
     public User() {
 
     }
+
 
 }

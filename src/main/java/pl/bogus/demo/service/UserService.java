@@ -1,41 +1,44 @@
 package pl.bogus.demo.service;
 
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.bogus.demo.dao.UserDao;
+import pl.bogus.demo.database.UserRepository;
 import pl.bogus.demo.model.User;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-
+@RequiredArgsConstructor
 @Service
 public class UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    public UserService(@Qualifier("postgres") UserDao userDao) {
-        this.userDao = userDao;
-    }
 
-    public int addUser(User user) {
-        return userDao.insertUser(user);
+    public User addUser(User user) {
+        return userRepository.save(user);
+
     }
 
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return userRepository.findAll();
     }
-    public Optional<User> findUserById(UUID id){
-        return  userDao.findUserById(id);
+
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
     }
-    public int deleteUserById(UUID id){
-       return userDao.deleteUserByID(id);
+
+    public boolean deleteUserById(Long id) {
+        userRepository.deleteById(id);
+        return true;
 
     }
-    public int updateUserById(UUID id , User user){
-      return   userDao.updateUserById(id, user);
+//TODO optional
+    public User updateUserById(Long id, User user) {
+        User user1 = userRepository.findById(id).get();
+        user1 = user;
+        return user1;
 
     }
 

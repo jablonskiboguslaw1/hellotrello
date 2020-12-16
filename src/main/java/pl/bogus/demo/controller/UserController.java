@@ -1,14 +1,13 @@
 package pl.bogus.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pl.bogus.demo.service.UserService;
 import pl.bogus.demo.model.User;
+import pl.bogus.demo.service.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.UUID;
 
-@RequestMapping("/")
+@RequestMapping("/user")
 @RestController
 public class UserController {
 
@@ -19,9 +18,9 @@ public class UserController {
     }
 
     @PostMapping
-    public void addUser(@RequestBody User user) {
+    public User addUser(@RequestBody User user) {
 
-        userService.addUser(user);
+       return userService.addUser(user);
     }
 
     @GetMapping
@@ -29,22 +28,23 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    /*TODO Swagger doesn't work- Postman does
-     *  Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID';*/
-    @GetMapping(path = "{id}")
-    public User getUserById(@PathVariable("id") UUID id) {
+
+    @GetMapping("/{id}")
+
+    public User getUserById(@PathVariable Long id) {
 
         return userService.findUserById(id).orElseThrow(NoSuchElementException::new);
     }
-    @DeleteMapping(path = "{id}")
-    public void deleteUserById(@PathVariable("id") UUID id) {
-        userService.deleteUserById(id);
+
+    @DeleteMapping("/{id}")
+    public boolean deleteUserById(@PathVariable Long id) {
+         return userService.deleteUserById(id);
 
     }
 
-    @PutMapping(path = "{id}")
-    public void updateUserById(@PathVariable("id") UUID id, @RequestBody User userToUpdate) {
-        userService.updateUserById(id, userToUpdate);
+    @PutMapping("/{id}")
+    public User updateUserById(@PathVariable Long id, @RequestBody User userToUpdate) {
+         return userService.updateUserById(id, userToUpdate);
     }
 }
 
