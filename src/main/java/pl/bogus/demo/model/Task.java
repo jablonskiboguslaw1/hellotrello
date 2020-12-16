@@ -17,10 +17,13 @@ public class Task {
     @Column(updatable = false, nullable = false)
     private Long id;
 
+
     private String title;
     private String notes;
     private int points;
     private int priority;
+
+    @Enumerated(EnumType.STRING)
     private Progress progress;
 
 }

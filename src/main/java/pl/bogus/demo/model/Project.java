@@ -1,8 +1,14 @@
 package pl.bogus.demo.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Setter
+@Getter
 @Entity
 public class Project {
     @Id
@@ -16,6 +22,7 @@ public class Project {
 
     @OneToMany
     private List<Task> tasks;
+
 
 
 }
