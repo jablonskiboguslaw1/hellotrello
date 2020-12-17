@@ -1,20 +1,20 @@
 package pl.bogus.demo.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Setter
 @Getter
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+
     private Long id;
 
 
@@ -25,5 +25,6 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private Progress progress;
+    private boolean deleted;
 
 }

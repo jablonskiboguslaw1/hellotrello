@@ -2,6 +2,7 @@ package pl.bogus.demo.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.bogus.demo.dto.ProjectDTO;
 import pl.bogus.demo.model.Project;
@@ -15,7 +16,7 @@ public class ProjectController {
 
 
     @PostMapping("/new")
-    public Project createProject(ProjectDTO projectDTO){
+    public Project createProject(@RequestBody  ProjectDTO projectDTO){
         return  projectService.createNewProject(
                 projectDTO.getOwnerId()
                 , projectDTO.getName()
