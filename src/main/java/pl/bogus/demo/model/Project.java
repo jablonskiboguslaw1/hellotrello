@@ -1,5 +1,6 @@
 package pl.bogus.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,6 @@ import java.util.List;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
     private Long id;
     private Long ownerId;
     private String name;
@@ -21,6 +21,7 @@ public class Project {
     private String description;
 
     @OneToMany
+    @JsonIgnore
     private List<Task> tasks;
 
 

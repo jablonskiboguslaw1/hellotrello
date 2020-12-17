@@ -20,12 +20,13 @@ private final ProjectContributionRepository projectContributionRepository;
 
 public Project  createNewProject(Long ownerId, String name, String description){
 
-    Project createdProject = Project.builder().
-            ownerId(ownerId).
-            name(name).
-            description(description).
-            tasks(new ArrayList<>()).
-            build();
+    Project createdProject =
+            new Project();
+            createdProject.setOwnerId(ownerId);
+            createdProject.setName(name);
+            createdProject.setDescription(description);
+            createdProject.setTasks(new ArrayList<>());
+
     projectRepository.save(createdProject);
 
 

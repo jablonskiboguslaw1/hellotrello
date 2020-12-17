@@ -19,7 +19,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+
     private Long id;
 
     @NotNull
@@ -32,6 +32,7 @@ public class Board {
     private List<ProjectContribution> contributions;
 
     @ManyToOne
+
     private User author;
 
 
