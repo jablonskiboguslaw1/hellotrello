@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.bogus.demo.database.TaskRepository;
 import pl.bogus.demo.dto.TaskDto;
 import pl.bogus.demo.model.Progress;
+import pl.bogus.demo.model.Project;
 import pl.bogus.demo.model.Task;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -16,21 +18,25 @@ public class TaskService {
 
 
     private final TaskRepository taskRepository;
-
+    private final ProjectService projectService;
 
     public Task findById(Long taskId) {
         return taskRepository.findById(taskId).orElseThrow(NoSuchElementException::new);
     }
     @Transactional
     public Task createTask(Long projectId, TaskDto taskDto) {
+        Project projectById = projectService.findById(projectId);
 
-        return Task.builder().title(taskDto.getTitle())
+        Task build = Task.builder().title(taskDto.getTitle())
                 .notes(taskDto.getNotes())
                 .points(taskDto.getPoints())
                 .priority(taskDto.getPriority())
                 .deleted(false)
                 .progress(Progress.BACKLOG)
                 .build();
+        projectById.getTasks().add(build);
+
+        return build;
     }
     @Transactional
     public boolean changeTaskProgress(Long taskId, String progress) {
@@ -56,6 +62,10 @@ public class TaskService {
     }
 
 
+    public List<Task> getAllByProjectId(Long projectId) {
+        Project  projectById = projectService.findById(projectId);
+        return projectById.getTasks();
+    }
 }
 
 
