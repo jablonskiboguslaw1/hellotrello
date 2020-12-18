@@ -20,8 +20,9 @@ public class Project {
 
     private String description;
 
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     @JsonIgnore
+
     private List<Task> tasks;
 
 

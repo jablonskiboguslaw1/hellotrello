@@ -8,30 +8,33 @@ import pl.bogus.demo.model.Project;
 import pl.bogus.demo.model.ProjectContribution;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @Service
 public class ProjectService {
 
-private final ProjectRepository projectRepository;
-private final ProjectContributionRepository projectContributionRepository;
+    private final ProjectRepository projectRepository;
+    private final ProjectContributionRepository projectContributionRepository;
 
 
+    public Project createNewProject(Long ownerId, String name, String description) {
 
-public Project  createNewProject(Long ownerId, String name, String description){
+        Project createdProject =
+                new Project();
+        createdProject.setOwnerId(ownerId);
+        createdProject.setName(name);
+        createdProject.setDescription(description);
+        createdProject.setTasks(new ArrayList<>());
 
-    Project createdProject =
-            new Project();
-            createdProject.setOwnerId(ownerId);
-            createdProject.setName(name);
-            createdProject.setDescription(description);
-            createdProject.setTasks(new ArrayList<>());
-
-    projectRepository.save(createdProject);
+        projectRepository.save(createdProject);
 
 
-    projectContributionRepository.save(new ProjectContribution(ownerId, createdProject.getId()));
-    return createdProject;
-}
+        projectContributionRepository.save(new ProjectContribution(ownerId, createdProject.getId()));
+        return createdProject;
+    }
 
+    public Project findById(Long projectId) {
+        return projectRepository.findById(projectId).orElseThrow(NoSuchElementException::new);
+    }
 }
